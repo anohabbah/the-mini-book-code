@@ -1,31 +1,34 @@
 <div *ngIf="person">
     <h3>{{ person.name }}</h3>
 
-    <div>
-        <label>Id :</label>
-        {{ person.id }}
-    </div>
-
-    <div>
-        <label for="name">Name :</label>
-        <input [(ngModel)]="person.name" name="name" id="name" placeholder="name" />
-    </div>
-
-    <div>
-        <label for="name">Phone :</label>
-        <input [(ngModel)]="person.phone" name="phone" id="phone" placeholder="phone" />
-    </div>
-
-    <fieldset>
-        <legend>Address :</legend>
-        <address>
-            <input [(ngModel)]="person.address.street" type="text" name="street" id="street" />
-            <input [(ngModel)]="person.address.city" type="text" name="city" id="city" />
-            <input [(ngModel)]="person.address.state" type="text" name="state" id="state" />
-            <input [(ngModel)]="person.address.zip" type="text" name="zip" id="zip" />
-        </address>
-    </fieldset>
-
-    <button (click)="save()" id="save">Save</button>
-    <button (click)="cancel()" id="cancel">Cancel</button>
+    <form #editForm="ngForm" (ngSubmit)="save()">
+        <div style="margin-bottom: 5px">
+            <label>Id :</label>
+            {{ person.id }}
+        </div>
+    
+        <div style="margin-bottom: 5px">
+            <label for="name">Name :</label>
+            <input [(ngModel)]="person.name" name="name" id="name" placeholder="name" required #name="ngModel" />
+            <div [hidden]="name.valid || name.pristine" style="color: red;"></div>
+        </div>
+    
+        <div style="margin-bottom: 5px">
+            <label for="name">Phone :</label>
+            <input [(ngModel)]="person.phone" name="phone" id="phone" placeholder="phone" />
+        </div>
+    
+        <fieldset>
+            <legend>Address :</legend>
+            <address>
+                <input [(ngModel)]="person.address.street" type="text" name="street" id="street" /> <br>
+                <input [(ngModel)]="person.address.city" type="text" name="city" id="city" />, 
+                <input [(ngModel)]="person.address.state" type="text" name="state" id="state" />
+                <input [(ngModel)]="person.address.zip" type="text" name="zip" id="zip" />
+            </address>
+        </fieldset>
+    
+        <button type="submit" (click)="save()" id="save" [disabled]="!editForm.form.valid">Save</button>
+        <button type="reset" (click)="cancel()" id="cancel">Cancel</button>
+    </form>
 </div>
