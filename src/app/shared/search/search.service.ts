@@ -22,8 +22,24 @@ export class SearchService {
     q.toLowerCase();
 
     return this.getAll().pipe(
-      map((data) => data.filter(item => JSON.stringify(item).toLowerCase().includes(q)))
+      map((data) => data.map((item) => !!localStorage['person' + item.id] ? JSON.parse(localStorage['person' + item.id]) : item)
+      .filter(item => JSON.stringify(item).toLowerCase().includes(q)))
     );
+  }
+  
+  get(id: number): Observable<Person> {
+    return this.getAll().pipe(
+      map((data) => {
+        if (localStorage['person' + id]) {
+          return JSON.parse(localStorage['person' + id]);
+        }
+        return data.find((item) => item.id === id)
+      })
+    )
+  }
+
+  save(person: Person): void {
+    localStorage['person' + person.id] = JSON.stringify(person);
   }
 }
 

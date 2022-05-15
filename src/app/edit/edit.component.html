@@ -1,0 +1,31 @@
+<div *ngIf="person">
+    <h3>{{ person.name }}</h3>
+
+    <div>
+        <label>Id :</label>
+        {{ person.id }}
+    </div>
+
+    <div>
+        <label for="name">Name :</label>
+        <input [(ngModel)]="person.name" name="name" id="name" placeholder="name" />
+    </div>
+
+    <div>
+        <label for="name">Phone :</label>
+        <input [(ngModel)]="person.phone" name="phone" id="phone" placeholder="phone" />
+    </div>
+
+    <fieldset>
+        <legend>Address :</legend>
+        <address>
+            <input [(ngModel)]="person.address.street" type="text" name="street" id="street" />
+            <input [(ngModel)]="person.address.city" type="text" name="city" id="city" />
+            <input [(ngModel)]="person.address.state" type="text" name="state" id="state" />
+            <input [(ngModel)]="person.address.zip" type="text" name="zip" id="zip" />
+        </address>
+    </fieldset>
+
+    <button (click)="save()" id="save">Save</button>
+    <button (click)="cancel()" id="cancel">Cancel</button>
+</div>

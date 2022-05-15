@@ -12,13 +12,13 @@
         <th>Address</th>
     </tr>
     <tr *ngFor="let person of results; let i = index">
-        <td>{{ person?.name }}</td>
-        <td>{{ person?.phone }}</td>
+        <td><a [routerLink]="['/edit', person.id]">{{ person.name }}</a></td>
+        <td>{{ person.phone }}</td>
         <td>
-            {{ person?.address?.street }}<br/>
-            {{ person?.address?.city }}
-            {{ person?.address?.state }}br
-            {{ person?.address?.zip }}
+            {{ person.address?.street }}<br/>
+            {{ person.address?.city }}
+            {{ person.address?.state }}
+            {{ person.address?.zip }}
         </td>
     </tr>
 </table>
