@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SearchService {
-
   constructor(private httpClient: HttpClient) {}
 
   getAll(): Observable<Person[]> {
@@ -15,27 +14,29 @@ export class SearchService {
   }
 
   search(q: string = ''): Observable<Person[]> {
+    console.log('called serach api');
+
     if (!q.trim() || q === '*') {
       q = '';
     }
 
-    q.toLowerCase();
+    q = q.toLowerCase();
 
     return this.getAll().pipe(
       map((data) => data.map((item) => !!localStorage['person' + item.id] ? JSON.parse(localStorage['person' + item.id]) : item)
       .filter(item => JSON.stringify(item).toLowerCase().includes(q)))
     );
   }
-  
+
   get(id: number): Observable<Person> {
     return this.getAll().pipe(
       map((data) => {
         if (localStorage['person' + id]) {
           return JSON.parse(localStorage['person' + id]);
         }
-        return data.find((item) => item.id === id)
+        return data.find((item) => item.id === id);
       })
-    )
+    );
   }
 
   save(person: Person): void {
