@@ -1,11 +1,15 @@
-<h2>Search</h2>
+<h2 class="mt-2">Search</h2>
 
-<form>
-    <input type="search" name="query" id="query" [(ngModel)]="query" (keyup.enter)="search()" />
-    <button (click)="search()">Search</button>
+<form class="row g-2">
+    <div class="col-auto">
+        <input type="search" name="query" id="query" [(ngModel)]="query" (keyup.enter)="search()" class="form-control ml-2 mr-2" />
+    </div>
+    <div class="col-auto">
+        <button type="button" class="btn btn-primary" (click)="search()">Search</button>
+    </div>
 </form>
 
-<table *ngIf="results?.length">
+<table *ngIf="results?.length" class="table">
     <tr>
         <th>Name</th>
         <th>Phone</th>

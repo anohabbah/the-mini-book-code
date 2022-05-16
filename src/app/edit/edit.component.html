@@ -1,34 +1,47 @@
-<div *ngIf="person">
-    <h3>{{ person.name }}</h3>
+<div *ngIf="person" class="col-8">
+    <h3 class="mt-2">{{ person.name }}</h3>
 
     <form #editForm="ngForm" (ngSubmit)="save()">
         <div style="margin-bottom: 5px">
-            <label>Id :</label>
+            <label>Id : </label>
             {{ person.id }}
         </div>
     
-        <div style="margin-bottom: 5px">
+        <div class="form-group">
             <label for="name">Name :</label>
-            <input [(ngModel)]="person.name" name="name" id="name" placeholder="name" required #name="ngModel" />
-            <div [hidden]="name.valid || name.pristine" style="color: red;"></div>
+            <input class="form-control" [(ngModel)]="person.name" name="name" id="name" placeholder="name" required #name="ngModel" [ngClass]="{ 'is-invalid': name.touched && name.invalid, 'is-valid': name.touched && name.valid }" />
+            <div [hidden]="name.valid || name.pristine" style="display: block;" class="invalid-feedback">Name is required</div>
         </div>
     
-        <div style="margin-bottom: 5px">
-            <label for="name">Phone :</label>
-            <input [(ngModel)]="person.phone" name="phone" id="phone" placeholder="phone" />
+        <div  class="from-group">
+            <label for="phone">Phone : </label>
+            <input [(ngModel)]="person.phone" name="phone" id="phone" placeholder="phone" class="form-control" />
         </div>
     
-        <fieldset>
-            <legend>Address :</legend>
+        <fieldset class="form-group">
+            <legend class="col-form-legend">Address :</legend>
             <address>
-                <input [(ngModel)]="person.address.street" type="text" name="street" id="street" /> <br>
-                <input [(ngModel)]="person.address.city" type="text" name="city" id="city" />, 
-                <input [(ngModel)]="person.address.state" type="text" name="state" id="state" />
-                <input [(ngModel)]="person.address.zip" type="text" name="zip" id="zip" />
+                <input [(ngModel)]="person.address.street" type="text" name="street" id="street" class="form-control mb-2" />
+
+                <div class="row">
+                    <div class="col-6">
+                        <input [(ngModel)]="person.address.city" type="text" name="city" id="city" class="form-control" />
+                    </div>
+                    <div class="col-3">
+                        <input [(ngModel)]="person.address.state" type="text" name="state" id="state" class="form-control" size="2" />
+                    </div>
+                    <div class="col-3">
+                        <input [(ngModel)]="person.address.zip" type="text" name="zip" id="zip" class="form-control" size="5" />
+                    </div>
+                </div>
             </address>
         </fieldset>
     
-        <button type="submit" (click)="save()" id="save" [disabled]="!editForm.form.valid">Save</button>
-        <button type="reset" (click)="cancel()" id="cancel">Cancel</button>
+        <button class="btn btn-primary" type="submit" (click)="save()" id="save" [disabled]="!editForm.form.valid">
+            Save
+        </button>
+        <button class="btn btn-light" type="reset" (click)="cancel()" id="cancel">
+            Cancel
+        </button>
     </form>
 </div>
